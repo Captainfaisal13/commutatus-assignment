@@ -1,0 +1,42 @@
+# Pipeline Empployee
+{
+    id:1,
+    name:"faisal",
+    team: null,
+    department: null
+},
+{
+    id:2,
+    name:"shaikh",
+    team: null,
+    department: null
+},
+
+
+# Assigned Employee 
+{
+    id:3,
+    name:"shaikh",
+    team: 2,
+    department: 1
+},
+{
+    id:4,
+    name:"shaikh",
+    team: 2,
+    department: 1
+}
+
+# Teams
+{
+    id:1,
+    name:Team1,
+    teamLeaderr: null,
+    department: 1
+},
+{
+    id:2,
+    name:Team2,
+    teamLeaderr: 4,
+    department: 2
+},
