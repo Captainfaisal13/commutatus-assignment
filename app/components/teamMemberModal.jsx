@@ -16,7 +16,7 @@ const style = {
   p: 4,
 };
 
-const TeamMemberModal = ({ employee, teams, setEmployees }) => {
+const TeamMemberModal = ({ employee, teams, setEmployees, isTeamLeader }) => {
   const [updateInfo, setUpdateInfo] = useState(false);
   const [employeeID, setEmployeeID] = useState(employee.employeeID);
   const [employeeName, setEmployeeName] = useState(employee.name);
@@ -159,6 +159,13 @@ const TeamMemberModal = ({ employee, teams, setEmployees }) => {
             <div className="flex gap-2 text-white">
               <h4>Team ID:</h4>
               <h4>{employee.teamID}</h4>
+              {isTeamLeader && (
+                <div className="flex flex-col justify-center">
+                  <h6 className="text-xxs px-2 py-1 bg-slate-600 rounded-md tracking-wide">
+                    Leader
+                  </h6>
+                </div>
+              )}
             </div>
             {changeTeam && (
               <div className="flex gap-3">

@@ -5,6 +5,7 @@ import AddTeamModal from "./components/addTeamModal";
 import AddEmployeeModal from "./components/addEmployeeModal";
 import TeamModal from "./components/teamModal";
 import TeamMemberModal from "./components/teamMemberModal";
+import SearchEmployeeModal from "./components/searchEmployee";
 
 const departments = [
   {
@@ -61,8 +62,8 @@ export default function Home() {
 
   if (!mounted) return <></>;
   return (
-    <main className="p-4">
-      <ul className="p-4 bg-slate-300 text-white">
+    <main className="p-4 bg-gray-300">
+      <ul className="p-4 bg-slate-300 text-white border border-black">
         <li>
           <div className="flex gap-2 my-2">
             <div className="flex flex-col justify-center">
@@ -121,6 +122,10 @@ export default function Home() {
                                         employee={employee}
                                         teams={teams}
                                         setEmployees={setEmployees}
+                                        isTeamLeader={
+                                          employee.employeeID ===
+                                          team.teamLeaderID
+                                        }
                                       />
                                       {employee.employeeID ===
                                         team.teamLeaderID && (
@@ -157,6 +162,12 @@ export default function Home() {
           teams={teams}
           setEmployees={setEmployees}
           employees={employees}
+        />
+        <SearchEmployeeModal
+          modalHeading="Search Employees"
+          employees={employees}
+          teams={teams}
+          setEmployees={setEmployees}
         />
       </div>
     </main>
