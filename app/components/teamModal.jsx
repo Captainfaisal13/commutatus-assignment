@@ -10,8 +10,8 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "#1E293B",
+  minWidth: 400,
+  bgcolor: "#475569",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
@@ -39,13 +39,22 @@ const TeamModal = ({
     setOpen(false);
   };
 
-  //   useEffect(() => {
-  //     console.log("teams", teams);
-  //   }, [teams]);
+  const notUnique = () => {
+    return (
+      teams.filter(
+        (team) => team.teamName.toUpperCase() === currTeamName.toUpperCase()
+      )?.length > 0
+    );
+  };
 
   return (
     <div>
-      <Button onClick={handleOpen}>{teamName}</Button>
+      <button
+        onClick={handleOpen}
+        className="hover:underline hover:underline-offset-2 cursor-pointer text-white text-sm sm:text-base"
+      >
+        {teamName}
+      </button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -61,7 +70,7 @@ const TeamModal = ({
                 </label>
                 <input
                   type="number"
-                  className="rounded-md"
+                  className="rounded-md px-2"
                   value={teamID}
                   onChange={(e) => {
                     setTeamID(e.target.value);
@@ -75,7 +84,7 @@ const TeamModal = ({
                 </label>
                 <input
                   type="text"
-                  className="rounded-md"
+                  className="rounded-md px-2"
                   value={currTeamName}
                   onChange={(e) => {
                     setCurrTeamName(e.target.value);
@@ -83,9 +92,17 @@ const TeamModal = ({
                 />
               </div>
               {currTeamName === "" ? (
-                <Toast message="please enter all the values" />
+                <Toast
+                  message="please enter all the values"
+                  buttonText="Update Team Information"
+                />
+              ) : notUnique() ? (
+                <Toast
+                  message="no two teams can have same id numbers or names"
+                  buttonText="Update Team Information"
+                />
               ) : (
-                <Button
+                <button
                   className="text-sm bg-black text-white rounded-lg p-2"
                   onClick={() => {
                     //   handleAddTeam();
@@ -100,8 +117,8 @@ const TeamModal = ({
                     handleClose();
                   }}
                 >
-                  Update TEAM{" "}
-                </Button>
+                  Update Team Information
+                </button>
               )}
             </div>
           )}
@@ -168,30 +185,27 @@ const TeamModal = ({
                       return tm;
                     });
                   });
+                  handleClose();
                 }}
               >
                 Make Leader
               </button>
             )}
             {team.teamLeaderID && !changeLeader ? (
-              <div>
+              <button
+                className="text-sm bg-black text-white rounded-lg p-2"
+                onClick={() => setChangeLeader(!changeLeader)}
+              >
+                Change Leader ?
+              </button>
+            ) : (
+              team.teamLeaderID && (
                 <button
                   className="text-sm bg-black text-white rounded-lg p-2"
                   onClick={() => setChangeLeader(!changeLeader)}
                 >
-                  Change Leader ?
+                  Cancel Change Leader ?
                 </button>
-              </div>
-            ) : (
-              team.teamLeaderID && (
-                <div>
-                  <button
-                    className="text-sm bg-black text-white rounded-lg p-2"
-                    onClick={() => setChangeLeader(!changeLeader)}
-                  >
-                    Cancel Change Leader ?
-                  </button>
-                </div>
               )
             )}
             {!updateInfo ? (

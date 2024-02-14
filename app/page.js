@@ -64,12 +64,28 @@ export default function Home() {
     <main className="p-4">
       <ul className="p-4 bg-slate-300 text-white">
         <li>
-          <h2>CEO</h2>
+          <div className="flex gap-2 my-2">
+            <div className="flex flex-col justify-center">
+              <h6 className="text-xxs px-2 py-1 bg-black rounded-md tracking-wide">
+                Head
+              </h6>
+            </div>
+            <h2 className=" text-sm sm:text-base">CEO</h2>
+          </div>
           <ul className="p-4  bg-slate-400 text-white">
             {departments.map((department, idx1) => {
               return (
                 <li key={idx1}>
-                  <h3>{department.departmentName}</h3>
+                  <div className="flex gap-2 my-2">
+                    <div className="flex flex-col justify-center">
+                      <h6 className="text-xxs px-2 py-1 bg-black rounded-md tracking-wide">
+                        Department
+                      </h6>
+                    </div>
+                    <h3 className="text-sm sm:text-base">
+                      {department.departmentName}
+                    </h3>
+                  </div>
                   <ul className="p-4 bg-slate-600 text-white">
                     {teams
                       ?.filter(
@@ -78,8 +94,12 @@ export default function Home() {
                       .map((team, idx2) => {
                         return (
                           <li key={idx2}>
-                            {" "}
-                            <h4 className="hover:underline hover:underline-offset-2 cursor-pointer">
+                            <div className="flex gap-2 my-2">
+                              <div className="flex flex-col justify-center">
+                                <h6 className="text-xxs px-2 py-1 bg-black rounded-md tracking-wide">
+                                  Team
+                                </h6>
+                              </div>
                               <TeamModal
                                 teamName={team.teamName}
                                 team={team}
@@ -88,18 +108,15 @@ export default function Home() {
                                 employees={employees}
                                 setEmployees={setEmployees}
                               />
-                            </h4>
-                            <ul className="p-4 bg-slate-700  text-white">
+                            </div>
+                            <ul className="p-4 bg-slate-700 text-white mb-2">
                               {employees
                                 .filter(
                                   (employee) => employee.teamID === team.teamID
                                 )
                                 .map((employee, idx3) => {
                                   return (
-                                    <li key={idx3} className="flex gap-2">
-                                      {/* <h5 className="hover:underline hover:underline-offset-2 cursor-pointer">
-                                        {employee.name}
-                                      </h5> */}
+                                    <li key={idx3} className="flex gap-2 my-2">
                                       <TeamMemberModal
                                         employee={employee}
                                         teams={teams}
@@ -107,9 +124,11 @@ export default function Home() {
                                       />
                                       {employee.employeeID ===
                                         team.teamLeaderID && (
-                                        <h6 className="text-xxs py-1 px-2 bg-black rounded-md">
-                                          Leader
-                                        </h6>
+                                        <div className="flex flex-col justify-center">
+                                          <h6 className="text-xxs px-2 py-1 bg-black rounded-md tracking-wide">
+                                            Leader
+                                          </h6>
+                                        </div>
                                       )}
                                     </li>
                                   );
@@ -125,18 +144,21 @@ export default function Home() {
           </ul>
         </li>
       </ul>
-      <AddTeamModal
-        modalHeading="Add Team"
-        teams={teams}
-        setTeams={setTeams}
-        departments={departments}
-      />
-      <AddEmployeeModal
-        employeeHeading="Add Employee"
-        departments={departments}
-        teams={teams}
-        setEmployees={setEmployees}
-      />
+      <div className="flex gap-4 fixed bottom-6 right-10">
+        <AddTeamModal
+          modalHeading="Add Team"
+          teams={teams}
+          setTeams={setTeams}
+          departments={departments}
+        />
+        <AddEmployeeModal
+          employeeHeading="Add Employee"
+          departments={departments}
+          teams={teams}
+          setEmployees={setEmployees}
+          employees={employees}
+        />
+      </div>
     </main>
   );
 }

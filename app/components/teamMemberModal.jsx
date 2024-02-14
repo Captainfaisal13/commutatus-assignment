@@ -45,9 +45,12 @@ const TeamMemberModal = ({ employee, teams, setEmployees }) => {
 
   return (
     <div>
-      <Button onClick={handleOpen} className="text-white">
+      <button
+        onClick={handleOpen}
+        className="hover:underline hover:underline-offset-2 cursor-pointer text-white text-sm sm:text-base"
+      >
         {employee.name}
-      </Button>
+      </button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -55,6 +58,7 @@ const TeamMemberModal = ({ employee, teams, setEmployees }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          {/* <h2>Add Team Modal</h2> */}
           <div className="flex flex-col gap-2">
             {updateInfo && (
               <div className="flex flex-col gap-4">

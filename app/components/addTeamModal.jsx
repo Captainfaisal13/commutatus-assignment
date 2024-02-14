@@ -14,8 +14,8 @@ const AddTeamModal = ({ modalHeading, teams, setTeams, departments }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "#1E293B",
+    // width: ,
+    bgcolor: "#475569",
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
@@ -46,12 +46,27 @@ const AddTeamModal = ({ modalHeading, teams, setTeams, departments }) => {
       ];
     });
 
-    console.log(teamID, teamName, currDept, teamLeader || "null");
+    handleClose();
+  };
+
+  const notUnique = () => {
+    return (
+      teams.filter(
+        (team) =>
+          team.teamID === Number(teamID) ||
+          team.teamName.toUpperCase() === teamName.toUpperCase()
+      )?.length > 0
+    );
   };
 
   return (
     <div>
-      <Button onClick={handleOpen}>{modalHeading}</Button>
+      <button
+        className="bg-[#475569] border text-white px-4 py-2 rounded-lg"
+        onClick={handleOpen}
+      >
+        {modalHeading}
+      </button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -59,6 +74,9 @@ const AddTeamModal = ({ modalHeading, teams, setTeams, departments }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <h2 className="text-white text-lg font-bold text-center mb-4">
+            Create Team
+          </h2>
           <div className="flex flex-col gap-4">
             <div className="flex gap-3">
               <label for="team name" className="text-white">
@@ -66,7 +84,7 @@ const AddTeamModal = ({ modalHeading, teams, setTeams, departments }) => {
               </label>
               <input
                 type="number"
-                className="rounded-md"
+                className="rounded-md px-2"
                 value={teamID}
                 onChange={(e) => {
                   setTeamID(e.target.value);
@@ -79,7 +97,7 @@ const AddTeamModal = ({ modalHeading, teams, setTeams, departments }) => {
               </label>
               <input
                 type="text"
-                className="rounded-md"
+                className="rounded-md px-2"
                 value={teamName}
                 onChange={(e) => {
                   setTeamName(e.target.value);
@@ -95,6 +113,7 @@ const AddTeamModal = ({ modalHeading, teams, setTeams, departments }) => {
                 onChange={(e) => {
                   setCurrDept(e.target.value);
                 }}
+                className="w-full px-2 rounded-md"
               >
                 <option value={-1} key={-1}>
                   Select Department
@@ -109,16 +128,24 @@ const AddTeamModal = ({ modalHeading, teams, setTeams, departments }) => {
               </select>
             </div>
             {currDept === -1 || teamID === "" || teamName === "" ? (
-              <Toast message="please enter all the values" />
+              <Toast
+                message="please enter all the values"
+                buttonText="Add Team"
+              />
+            ) : notUnique() ? (
+              <Toast
+                message="no two teams can have same id numbers or names"
+                buttonText="Add Team"
+              />
             ) : (
-              <Button
+              <button
                 className="text-sm bg-black text-white rounded-lg p-2"
                 onClick={() => {
                   handleAddTeam();
                 }}
               >
-                ADD TEAM{" "}
-              </Button>
+                Add Team
+              </button>
             )}
           </div>
         </Box>
